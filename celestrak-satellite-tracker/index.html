@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Celestrak Satellite Tracker</title>
+    <link rel="icon" type="image/png" href="./assets/CT-icon.ico" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script src="./js-files/index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Celestrak Satellite Tracker</h1>
+    </header>
+    <main>
+      <div class="button-block">
+        <button onclick="showForm()">Form</button>
+        <button onclick="showTable()">Table</button>
+      </div>
+      <div id="message-box"></div>
+      <div class="form-box">
+        <h2>Input Satellite information</h2>
+        <!-- Filter for Satellite name -->
+        <div id="filter-section">
+          <div class="user-box">
+            <input type="text" id="satelliteName" name="satelliteName" required />
+            <label for="satelliteName">Name</label>
+          </div>
+          <button class="filter-button" onclick="filterData()">Filter</button>
+        </div>
+        <!-- Filter ends -->
+        <form id="l-inner-form">
+          <div class="user-box">
+            <input type="text" id="name" name="name" required />
+            <label for="name">Name</label>
+          </div>
+          <div class="user-box">
+            <select name="priority" id="priority" required>
+              <option value="">Select priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="user-box">
+            <textarea name="description" id="description" required></textarea>
+            <label for="description">Description</label>
+          </div>
+          <div class="user-box">
+            <input type="datetime-local" name="date" id="date" required />
+            <label class="date-time-label" for="date">Date</label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="grid">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+html {
+  height: 100%;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background-image: url('./bg-pic.jpg');
+  background-repeat: no-repeat;
+  background-color: rgb(2, 2, 19);
+  background-size: cover;
+}
+
+h1 {
+  color: antiquewhite;
+  text-align: center;
+}
+
+option {
+  font-family: inherit;
+  background: black;
+}
+
+button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: .5s;
+  letter-spacing: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: -webkit-fill-available;
+}
+
+th {
+  background-color: rgba(214, 195, 195, 0.5);
+}
+
+th, td {
+  padding: 5px;
+}
+
+#grid {
+  display: none;
+  color: antiquewhite;
+  justify-content: center;
+}
+
+#filter-section {
+  display: none;
+}
+
+.form-box {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.form-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.form-box .user-box {
+  position: relative;
+}
+
+.form-box .user-box input, select, textarea {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.form-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.form-box .user-box input:focus ~ label,
+.form-box .user-box input:valid ~ label,
+.form-box .user-box textarea:focus ~ label,
+.form-box .user-box textarea:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.form-box .user-box .date-time-label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.form-box button:hover {
+  background: #03e9f4;
+  color: #1b033b;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.button-block {
+  display: flex;
+  justify-content: center;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
