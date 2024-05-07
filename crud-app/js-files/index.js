@@ -14,13 +14,15 @@ const deafultResponse = {
 };
 
 function fakeFetch(data = deafultResponse) {
+  displayMessage('loading');
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (true) {
+      if (Math.random() < 0.85) {
         resolve(data);
       } else {
         reject({message: 'There was a problem with the server, please try again.'});
       }
+      messageBox.style.display = 'none';
     }, 2000);
   });
 }
@@ -45,23 +47,19 @@ async function getTableData(withFilter) {
   } catch (e) {
     console.log(e);
     displayMessage('failed', e?.message || 'something went wrong.');
+    return e?.message || 'something went wrong.';
   }
 }
-
-// function getTableData() {
-//   const localData = localStorage.getItem('formData');
-//   const hasData = !!localData;
-//   const parsedData = JSON.parse(localStorage.getItem('formData'));
-//   localStorage.removeItem('formData');
-//   return hasData ? parsedData : [];
-// }
 
 function displayMessage(type, msg) {
   messageBox.style.display = 'block';
   messageBox.style.color = 'antiquewhite';
   messageBox.style.margin = '15px auto';
   messageBox.style.width = 'fit-content';
-  if (type === 'success') {
+  if (type === 'loading') {
+    messageBox.style.background = 'rgba(214, 195, 195, 0.5)';
+    messageBox.innerText = 'Loading.....';
+  } else if (type === 'success') {
     messageBox.style.background = 'green';
     messageBox.innerText = msg || 'The data has been saved.';
   } else {
@@ -113,18 +111,6 @@ async function submitForm(event) {
   }, 5000);
 }
 
-// function submitForm(event) {
-//   event.preventDefault();
-//   const name = form.name.value;
-//   const priority = form.priority.value;
-//   const description = form.description.value;
-//   const date = form.date.value;
-//   const arrayData = [...getTableData()];
-//   arrayData.push({name, priority, description, date});
-//   localStorage.setItem('formData', JSON.stringify(arrayData));
-//   clearInputs();
-// }
-
 form.addEventListener('submit', submitForm);
 
 async function deleteRow(name) {
@@ -137,7 +123,7 @@ async function deleteRow(name) {
     // });
     // const resJson = await response.json();
     const tableData = await getTableData();
-    localStorage.setItem('formData', JSON.stringify(tableData.filter((obj) => obj.satelliteName !== name)));
+    localStorage.setItem('formData', JSON.stringify([...(tableData || [])].filter((obj) => obj.satelliteName !== name)));
     const resJson = await fakeFetch();
     displayMessage('success', resJson.message && 'Deleted successfully');
     showTable();
@@ -163,14 +149,17 @@ function showForm() {
   filterSection.style.display = 'none';
   messageBox.style.display = 'none';
   form.style.display = 'block';
-  header2.innerText = 'Input Satellite information';
+  header2.innerText = 'Input Tray';
   formBox.style.width = '400px';
   document.getElementById('satelliteName').value = '';
 }
 
 async function renderTableData(withFilter = false) {
   const tableData = await getTableData(withFilter);
-  if (tableData?.length > 0) {
+  if (Array.isArray(tableData) && tableData?.length > 0) {
+    if (messageBox.hasChildNodes()) {
+      messageBox.style.display = 'none';
+    }
     [...tableData].forEach((dataSet) => {
       const tr = document.createElement('tr');
       const dataArray = [...Object.values(dataSet), 'icon'];
@@ -194,6 +183,8 @@ async function renderTableData(withFilter = false) {
       });
       tableBody.appendChild(tr);
     });
+  } else if (typeof tableData === 'string') {
+    displayMessage('failed', tableData);
   } else {
     displayMessage('failed');
   }
@@ -207,7 +198,7 @@ function showTable() {
   filterSection.style.marginBottom = '20px';
   filterSection.style.justifyContent = 'space-evenly';
   form.style.display = 'none';
-  header2.innerText = 'Satellites information';
+  header2.innerText = 'Entry Table data';
   formBox.style.width = '800px';
   renderTableData().then(() => {});
 }
