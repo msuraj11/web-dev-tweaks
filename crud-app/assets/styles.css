@@ -40,6 +40,19 @@ th {
 
 th, td {
   padding: 5px;
+  text-align: -webkit-center;
+}
+
+table tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+table thead, table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 #grid {
